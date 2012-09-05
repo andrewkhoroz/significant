@@ -91,7 +91,7 @@ $(function(){
     var xMax=599;
     var yMax=399;
     var rMax=40;
-    var colors=['red','green','yellow','blue','orange','lime','black','white'];
+    var colors=['red','green','yellow','blue','orange','lime','black','white','brown'];
     var colorsCount=colors.length;
     var count=0;
 

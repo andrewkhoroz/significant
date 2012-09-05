@@ -1,6 +1,6 @@
 <?php
 
-class TankController extends Zend_Controller_Action {
+class TestController extends Zend_Controller_Action {
 
     /**
      * This action is the home page of the website
@@ -10,8 +10,10 @@ class TankController extends Zend_Controller_Action {
         $this->view->title = 'Hello World !';
         $this->view->headTitle('Hello World !');
     }
-    public function testAction() {
+
+    public function videoAction() {
         $this->view->title = 'Hello World !';
         $this->view->headTitle('Hello World !');
     }
+
 }
