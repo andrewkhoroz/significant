@@ -110,7 +110,7 @@ $(function(){
             fill:colors[colorIndex]
         });
         count++;
-        if(count>10000){
+        if(count>10){
             clearInterval(interbalId);
         }
     }, 5);
@@ -161,3 +161,4 @@ $(function(){
         }
     });
 });
+alert('changed from iss53 branch');
