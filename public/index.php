@@ -12,10 +12,11 @@ defined('APPLICATION_ENV')
 // to the include_path, particularly if it contains your ZF installed
 set_include_path(implode(PATH_SEPARATOR, array(
             dirname(__FILE__) . '/../library/',
-//            dirname(__FILE__) . '/../library/Zend',
+            dirname(__FILE__) . '/../library/Zend',
+            dirname(__FILE__) . '/../library/ZendX',
             dirname(__FILE__) . '/../application/models',
             dirname(__FILE__) . '/../application/forms',
-            'D:/Education/PHP/ZendFramework/LIBRARY',
+//            'D:/Education/PHP/ZendFramework/LIBRARY',
             get_include_path(),
         )));
 /** Zend_Application */
