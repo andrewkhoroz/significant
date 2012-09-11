@@ -1,6 +1,6 @@
 <?php
 
-class TestController extends Zend_Controller_Action {
+class HTML5Controller extends Zend_Controller_Action {
 
     /**
      * This action is the home page of the website
