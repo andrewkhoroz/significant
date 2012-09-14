@@ -34,7 +34,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $view->doctype('HTML5');
         $view->headTitle('Significant')
                 ->setSeparator(' :: ');
-        $view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=windows-1251');
+//        $view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=windows-1251');
+//        $view->headMeta()->setCharset( 'UTF-8' );
         // Add it to the ViewRenderer
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper(
                         'ViewRenderer'

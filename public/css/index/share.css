@@ -1,0 +1,26 @@
+.wrapper-outer{
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.wrapper-inner{
+    margin: 0 auto;
+    position: relative;
+    width: 900px;
+    left: -305px;
+}
+.wrapper-outer #share{
+    display: block;
+    left: 150px;
+    position: absolute;
+    top: 315px;
+    height: 300px;
+    width: 100px;
+    border: none;
+    box-shadow: -12px 0 25px -6px #9DCAE0;
+    -webkit-box-shadow: -12px 0 25px -6px #9DCAE0;
+    -moz-box-shadow:-12px 0 25px -6px #9DCAE0;
+    background: white;
+}

@@ -11,17 +11,17 @@ class App_Controller_Plugin_ActionSetup extends Zend_Controller_Plugin_Abstract 
 
             $actionStack = Zend_Controller_Action_HelperBroker::getStaticHelper('ActionStack');
 
-//            $menuAction = clone($request);
-//            $menuAction->setModuleName('default')
-//                    ->setActionName('menu')
-//                    ->setControllerName('index');
-//            $actionStack->pushStack($menuAction);
+            $menuAction = clone($request);
+            $menuAction->setModuleName('default')
+                    ->setActionName('share')
+                    ->setControllerName('index');
+            $actionStack->pushStack($menuAction);
 
-//            $advertAction = clone($request);
-//            $advertAction->setModuleName('default')
-//                    ->setActionName('advert')
-//                    ->setControllerName('index');
-//            $actionStack->pushStack($advertAction);
+            $sidebarAction = clone($request);
+            $sidebarAction->setModuleName('default')
+                    ->setActionName('sidebar')
+                    ->setControllerName('index');
+            $actionStack->pushStack($sidebarAction);
         }
     }
 

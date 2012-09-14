@@ -11,4 +11,13 @@ class IndexController extends Zend_Controller_Action {
         $this->view->headTitle('Hello World !');
     }
 
+    public function shareAction() {
+        $this->view->headScript()->appendFile($this->view->baseUrl() . '/js/jQuery/jquery.scrolllock.js');
+        $this->_helper->viewRenderer->setResponseSegment('share');
+    }
+
+    public function sidebarAction() {
+        $this->_helper->viewRenderer->setResponseSegment('sidebar');
+    }
+
 }

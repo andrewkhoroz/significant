@@ -1,0 +1,16 @@
+CACHE MANIFEST
+# Created on 8 October 2011
+
+CACHE:
+site.css
+site.js
+
+NETWORK:
+login.aspx
+currency.aspx
+# offline.jpg will replace all images in the images folder
+# offline.html will replace all html pages if they cannot be found
+
+FALLBACK:
+site/images images/offline.jpg
+*.html offline.html

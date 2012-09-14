@@ -7,13 +7,13 @@ class HTML5Controller extends Zend_Controller_Action {
      *
      */
     public function indexAction() {
-        $this->view->title = 'Hello World !';
-        $this->view->headTitle('Hello World !');
+        $this->view->title = '15 CSS3 Navigation and Menu Tutorials and Techniques';
+        $this->view->headTitle('15 CSS3 Navigation and Menu Tutorials and Techniques');
     }
 
-    public function videoAction() {
-        $this->view->title = 'Hello World !';
-        $this->view->headTitle('Hello World !');
+    public function offlineAction() {
+        $this->view->title = 'Offline Applications';
+        $this->view->headTitle('Offline Applications');
     }
 
 }

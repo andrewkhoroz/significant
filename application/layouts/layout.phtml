@@ -20,7 +20,7 @@ echo $this->doctype();
                     <?php echo $this->layout()->menu; ?>
                 </nav>
             </header>
-            <article id="c-main" class="page-width">
+            <article id="c-main" class="page-width content-border">
                 <div id="c-central" class="column left">
                     <div class="top-banner off">
                         <a href="/">
@@ -31,15 +31,16 @@ echo $this->doctype();
                     <br class="clear"/>
                 </div>
                 <div id="c-right" class="column right">
-
+                    <?php echo $this->layout()->sidebar; ?>
                 </div>
                 <br class="clear"/>
             </article>
             <?php echo $this->render('_footer.phtml'); ?>
             <?php
             $this->addScriptPath(APPLICATION_PATH . '/views/scripts');
-//            echo $this->render('util/profiler.phtml');
+            echo $this->render('util/profiler.phtml');
             ?>
         </div>
+        <?php echo $this->layout()->share; ?>
     </body>
 </html>

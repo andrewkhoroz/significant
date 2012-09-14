@@ -1,0 +1,3 @@
+$(function() {
+    $("#places").sortable().disableSelection();
+});
