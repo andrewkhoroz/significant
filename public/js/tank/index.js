@@ -1,9 +1,13 @@
+var allTanks;
 function Transport(params){
     //    console.log(arguments);
+    if(undefined==params){
+        params={};
+    }
     var self=this;
-    self.maxWidth=600;
-    self.maxHeight=300;
-    self.speed=5;
+    self.maxWidth=680;
+    self.maxHeight=540;
+    self.speed=10;
     self.context=undefined;
     self.x = params.x || 0;
     self.y = params.y || 0;
@@ -21,16 +25,16 @@ function Transport(params){
     }
     self.draw=function(direction){
         self.context.fillStyle = self.fill;
-        //        this.context.fillRect(this.x, this.y, this.w, this.h);
-        self.context.beginPath();
-        self.context.arc(self.x, self.y, self.w, 0 , 2 * Math.PI, false);
-        self.context.fill();
-        self.context.lineWidth = 5;
-        self.context.strokeStyle = "black";
-        self.context.stroke();
+        self.context.fillRect(self.x, self.y, self.w, self.h);
+    //        self.context.beginPath();
+    //        self.context.arc(self.x, self.y, self.w, 0 , 2 * Math.PI, false);
+    //        self.context.fill();
+    //        self.context.lineWidth = 5;
+    //        self.context.strokeStyle = "black";
+    //        self.context.stroke();
     //        this.drawMuzzle(direction);
     }
-    this.drawMuzzle=function(direction){
+    self.drawMuzzle=function(direction){
         switch(direction){
             case 'LEFT':
                 self.context.fillRect(self.x-10, self.y+self.h/2-2.5, 10, 5);
@@ -49,118 +53,210 @@ function Transport(params){
         }
     }
     self.clear=function(){
-        self.context.clearRect(self.x-10, self.y-10, self.w+20, self.h+20);
+        self.context.clearRect(self.x, self.y, self.w, self.h);
+    }
+    self.canMoveLeft = function(){
+        return (self.x-self.speed>=0);
+    }
+    self.canMoveRight = function(){
+        return (self.x+self.speed+self.w<=self.maxWidth);
+    }
+    self.canMoveUp = function(){
+        return (self.y-self.speed>0);
+    }
+    self.canMoveDown = function(){
+        return (self.y+self.speed+self.h<=self.maxHeight);
     }
     self.moveLeft = function(){
-        self.clear();
-        if(self.x-self.speed-10>0){
+        var res=false;
+        if(self.canMoveLeft()){
+            self.clear();
             self.x-=self.speed;
+            self.draw('LEFT');
+            res=true;
         }
-        self.draw('LEFT');
+        return res;
     }
     self.moveRight = function(){
-        self.clear();
-        if(self.x+self.speed+self.w+10<self.maxWidth){
+        var res=false;
+        if(self.canMoveRight()){
+            self.clear();
             self.x+=self.speed;
-        }
-        self.draw('RIGHT');
+            self.draw('RIGHT');
+            res=true;
+        } 
+        return res;
     }
     self.moveUp = function(){
-        self.clear();
-        if(self.y-self.speed-10>0){
+        var res=false;
+        if(self.canMoveUp()){
+            self.clear();
             self.y-=self.speed;
+            self.draw('UP');
+            res=true;
         }
-        self.draw('UP');
+        return res;
     }
     self.moveDown = function(){
-        self.clear();
-        if(self.y+self.speed+self.h+10<self.maxHeight){
+        var res=false;
+        if(self.canMoveDown()){
+            self.clear();
             self.y+=self.speed;
-        }
-        self.draw('DOWN');
+            self.draw('DOWN');
+            res=true;
+        } 
+        return res;
+    }
+    self.moveHaos=function(){
+        if(self.canMoveRight() && self.canMoveDown() && (self.x>3 || self.y<=5)){
+            self.moveRight()
+        }else if(self.canMoveDown() &&  self.x>3){
+            self.moveDown()
+        }else if(self.canMoveLeft()){
+            self.moveLeft()
+        }else if(self.canMoveUp()){
+            self.moveUp()
+        }       
     }
     self.init(); 
 }
-
-$(function(){
-    var Tank=function(params) {
-        Transport.apply(this, arguments);
+var Tank=function(params) {
+    Transport.apply(this, arguments);
+}
+function Game(params){
+    var self=this;
+    var c = document.getElementById("canvasId");
+    self.context=c.getContext("2d");
+    var defaults={
+        enemiesCount:5
     }
-    Tank.prototype=new Transport({});
-
-    var xMax=599;
-    var yMax=399;
+    var options = $.extend(defaults, params);
     var rMax=40;
-    var colors=['red','green','yellow','blue','orange','lime','black','white','brown'];
+    var xMax=680-rMax;
+    var yMax=540-rMax;
+
+    var colors=['red','green','yellow','blue','orange','lime','white','brown'];
     var colorsCount=colors.length;
     var count=0;
-
-    var interbalId= setInterval(function(){
+    
+    self.enemies=[];
+    self.player=[];   
+    self.tanks=[];
+       
+    var init=function(){           
+        $("#target").keypress(function(event) {
+            if ( event.which == 13 ) {
+                event.preventDefault();
+            }
+            if(event.keyCode){
+                switch(event.keyCode){
+                    case 37:
+                        self.player.moveLeft();
+                        break;
+                    case 39:
+                        self.player.moveRight();
+                        break;
+                    case 38:
+                        self.player.moveUp();
+                        break;
+                    case 40:
+                        self.player.moveDown();
+                        break;
+                    default:
+                        break;
+                }
+            }else if(event.charCode){
+                switch(event.charCode){
+                    case 97:
+                        self.player.moveLeft();
+                        break;
+                    case 100:
+                        self.player.moveRight();
+                        break;
+                    case 119:
+                        self.player.moveUp();
+                        break;
+                    case 115:
+                        self.player.moveDown();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+    }
+    /**
+ * Create a tank randomly. New tank should not
+ * overlaps existing ones.
+ *
+ * @return {Tank} New tank.
+ */
+    var generateTank=function(){
+        var drawn = true;
+        var r=rMax;
         var x=Math.floor(Math.random()*xMax+1);
         var y=Math.floor(Math.random()*yMax+1);
-        var r=Math.floor(Math.random()*rMax+1);
-        
+        var attempts=0;
+        while(drawn) {
+            attempts++;
+            if(attempts>10){
+                break;
+            }
+            //check if is drown
+            var d  = self.context.getImageData(x, y, r, r); 
+            var len     = d.data.length;
+            for(var i =0; i< len; i++) {
+                if(!d.data[i]) {
+                    drawn = false;
+                }else if(d.data[i]) {
+                    drawn = true;
+                    x=Math.floor(Math.random()*xMax+1);
+                    y=Math.floor(Math.random()*yMax+1);
+                    break;
+                }
+            }
+        }
+  
         var colorIndex=Math.floor(Math.random()*colorsCount);
-    
-        new Tank({
+        var tank= new Tank({
             x:x,
             y:y,
             w:r,
             h:r,
             fill:colors[colorIndex]
         });
-        count++;
-        if(count>10){
-            clearInterval(interbalId);
-        }
-    }, 5);
-
-    
-    $("#target").keypress(function(event) {
-        if ( event.which == 13 ) {
-            event.preventDefault();
-        }
-        if(event.keyCode){
-            switch(event.keyCode){
-                case 37:
-                    t34.moveLeft();
-                    break;
-                case 39:
-                    t34.moveRight();
-                    break;
-                case 38:
-                    t34.moveUp();
-                    break;
-                case 40:
-                    t34.moveDown();
-                    break;
-                default:
-                    break;
+        setInterval(function(){
+            tank.moveHaos();
+        }, 5);
+        return tank;
+    }
+    self.start=function(){
+        init();
+        self.player.push(new Tank({
+            x:0,
+            y:0,
+            w:rMax,
+            h:rMax,
+            fill:'black'
+        }));
+        self.tanks.push(self.player);
+        var interbalId= setInterval(function(){
+            var tank=generateTank();
+            self.enemies.push(tank);
+            self.tanks.push(tank);
+        
+            count++;
+            if(count>=options.enemiesCount){
+                clearInterval(interbalId);
             }
-        }else if(event.charCode){
-            switch(event.charCode){
-                case 97:
-                    t72.moveLeft();
-                    t92.moveLeft();
-                    break;
-                case 100:
-                    t72.moveRight();
-                    t92.moveRight();
-                    break;
-                case 119:
-                    t72.moveUp();
-                    t92.moveUp();
-                    break;
-                case 115:
-                    t72.moveDown();
-                    t92.moveDown();
-                    break;
-                default:
-                    break;
-            }
-        }
+        }, 5);
+        console.log(self);
+    }
+}
+$(function(){
+    var game=new Game({
+        enemiesCount:150
     });
+    game.start();
+   
 });
-alert('changed from hotfix');
-alert('changed from iss53 branch');
-alert('changed from iss53 branch again 444');
