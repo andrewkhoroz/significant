@@ -14,10 +14,10 @@ echo $this->doctype();
     </head>
     <body>
         <div id="c-w">
-            <header id="header">
+            <header id="header" class="page-width">
                 <?php echo $this->render('_header.phtml'); ?>
                 <nav>
-                    <?php echo $this->layout()->menu; ?>
+                    <?php echo $this->layout()->navigation; ?>
                 </nav>
             </header>
             <article id="c-main" class="page-width content-border">

@@ -20,4 +20,8 @@ class IndexController extends Zend_Controller_Action {
         $this->_helper->viewRenderer->setResponseSegment('sidebar');
     }
 
+    public function navigationAction() {
+        $this->_helper->viewRenderer->setResponseSegment('navigation');
+    }
+
 }

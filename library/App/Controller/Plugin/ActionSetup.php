@@ -22,6 +22,12 @@ class App_Controller_Plugin_ActionSetup extends Zend_Controller_Plugin_Abstract 
                     ->setActionName('sidebar')
                     ->setControllerName('index');
             $actionStack->pushStack($sidebarAction);
+
+            $navigationAction = clone($request);
+            $navigationAction->setModuleName('default')
+                    ->setActionName('navigation')
+                    ->setControllerName('index');
+            $actionStack->pushStack($navigationAction);
         }
     }
 

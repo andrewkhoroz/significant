@@ -1,5 +1,5 @@
 var allTanks;
-function Transport(params){
+var Transport = function(params){
     //    console.log(arguments);
     if(undefined==params){
         params={};
@@ -123,7 +123,7 @@ function Transport(params){
 var Tank=function(params) {
     Transport.apply(this, arguments);
 }
-function Game(params){
+var Game=function(params){
     var self=this;
     var c = document.getElementById("canvasId");
     self.context=c.getContext("2d");
@@ -191,7 +191,7 @@ function Game(params){
  *
  * @return {Tank} New tank.
  */
-    var generateTank=function(){
+    self.generateTank=function(){
         var drawn = true;
         var r=rMax;
         var x=Math.floor(Math.random()*xMax+1);
@@ -241,7 +241,7 @@ function Game(params){
         }));
         self.tanks.push(self.player);
         var interbalId= setInterval(function(){
-            var tank=generateTank();
+            var tank=self.generateTank();
             self.enemies.push(tank);
             self.tanks.push(tank);
         
@@ -255,8 +255,17 @@ function Game(params){
 }
 $(function(){
     var game=new Game({
-        enemiesCount:150
+        enemiesCount:1
     });
     game.start();
+    $('[name=generate_tank]').click(function(){
+        game.generateTank();
+    });
    
 });
+var c1={};
+var c2=[];
+console.log(typeof c1);
+console.log(typeof c2);
+console.log( c1);
+console.log( c2);
