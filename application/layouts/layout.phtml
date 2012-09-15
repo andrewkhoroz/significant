@@ -13,33 +13,35 @@ echo $this->doctype();
         <link rel="icon" type="image/gif" href="<?= $this->baseUrl() . '/img/ball.gif'; ?>"/>
     </head>
     <body>
-        <div id="c-w">
-            <header id="header" class="page-width">
-                <?php echo $this->render('_header.phtml'); ?>
-                <nav>
-                    <?php echo $this->layout()->navigation; ?>
-                </nav>
-            </header>
-            <article id="c-main" class="page-width content-border">
-                <div id="c-central" class="column left">
-                    <div class="top-banner off">
-                        <a href="/">
-                            <img height="80" border="0" width="100%" alt="Фотогалерея" src="/img/43.jpg"/>
-                        </a>
+        <div id="c-w-o">
+            <div id="c-w-i" class="page-width">
+                <header id="header" class="page-width">
+                    <?php echo $this->render('_header.phtml'); ?>
+                    <nav>
+                        <?php echo $this->layout()->navigation; ?>
+                    </nav>
+                </header>
+                <article id="c-main" class="page-width content-border">
+                    <div id="c-central" class="column left">
+                        <div class="top-banner off">
+                            <a href="/">
+                                <img height="80" border="0" width="100%" alt="Фотогалерея" src="/img/43.jpg"/>
+                            </a>
+                        </div>
+                        <?php echo $this->layout()->content; ?>
+                        <br class="clear"/>
                     </div>
-                    <?php echo $this->layout()->content; ?>
+                    <div id="c-right" class="column right">
+                        <?php echo $this->layout()->sidebar; ?>
+                    </div>
                     <br class="clear"/>
-                </div>
-                <div id="c-right" class="column right">
-                    <?php echo $this->layout()->sidebar; ?>
-                </div>
-                <br class="clear"/>
-            </article>
-            <?php echo $this->render('_footer.phtml'); ?>
-            <?php
-            $this->addScriptPath(APPLICATION_PATH . '/views/scripts');
-            echo $this->render('util/profiler.phtml');
-            ?>
+                </article>
+                <?php echo $this->render('_footer.phtml'); ?>
+                <?php
+                $this->addScriptPath(APPLICATION_PATH . '/views/scripts');
+                echo $this->render('util/profiler.phtml');
+                ?>
+            </div>
         </div>
         <?php echo $this->layout()->share; ?>
     </body>

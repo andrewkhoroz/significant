@@ -5,8 +5,8 @@ var Transport = function(params){
         params={};
     }
     var self=this;
-    self.maxWidth=680;
-    self.maxHeight=540;
+    self.maxWidth=640;
+    self.maxHeight=520;
     self.speed=10;
     self.context=undefined;
     self.x = params.x || 0;
@@ -108,9 +108,9 @@ var Transport = function(params){
         return res;
     }
     self.moveHaos=function(){
-        if(self.canMoveRight() && self.canMoveDown() && (self.x>3 || self.y<=5)){
+        if(self.canMoveRight() && self.canMoveDown() && (self.x>=3 || self.y<=3)){
             self.moveRight()
-        }else if(self.canMoveDown() &&  self.x>3){
+        }else if(self.canMoveDown() &&  self.x>=3){
             self.moveDown()
         }else if(self.canMoveLeft()){
             self.moveLeft()
@@ -132,10 +132,10 @@ var Game=function(params){
     }
     var options = $.extend(defaults, params);
     var rMax=40;
-    var xMax=680-rMax;
-    var yMax=540-rMax;
+    var xMax=640-rMax;
+    var yMax=520-rMax;
 
-    var colors=['red','green','yellow','blue','orange','lime','white','brown'];
+    var colors=['red','green','yellow','blue','orange','lime','brown'];
     var colorsCount=colors.length;
     var count=0;
     
@@ -255,7 +255,7 @@ var Game=function(params){
 }
 $(function(){
     var game=new Game({
-        enemiesCount:1
+        enemiesCount:100
     });
     game.start();
     $('[name=generate_tank]').click(function(){

@@ -19,7 +19,7 @@ andrew.khoroz@gmail.com
         var el = $(this);
         var wrapOuter=el.parents('.wrapper-outer:first');
         var wrapInner=el.parents('.wrapper-inner:first');
-        var const_=315;
+        var const_=200;
         var topOffset=85;
         $(window).bind('load scroll', function(e) {
             var bottomLimit=$('#footer').offset().top-el.height()-100;

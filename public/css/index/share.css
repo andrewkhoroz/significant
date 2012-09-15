@@ -9,13 +9,13 @@
     margin: 0 auto;
     position: relative;
     width: 900px;
-    left: -305px;
+    left: -295px;
 }
 .wrapper-outer #share{
     display: block;
     left: 150px;
     position: absolute;
-    top: 315px;
+    top: 200px;
     height: 300px;
     width: 100px;
     border: none;

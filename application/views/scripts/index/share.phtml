@@ -5,8 +5,8 @@
             $shareUrl = $this->baseUrl() . '/' . Zend_Controller_Front::getInstance()->getRequest()->getBaseUrl();
             $shareTitle = $this->escape($this->title);
             $shareTitle = addslashes($shareTitle);
-            $showCounters = 0;
-            $align = 'vertical2';
+            $showCounters = 1;
+            $align = 'vertical';
             if ($showCounters == 1) {
                 ?>
 
