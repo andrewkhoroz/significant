@@ -1,32 +1,39 @@
-$(function(){
-    var  $images=$("a[rel=fancy_images]");
-    if($images.length>0){
-        $images.fancybox({
-            'transitionIn'		: 'none',
-            'transitionOut'		: 'none',
-            'titlePosition' 	: 'inside',
-            'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
-                return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+window.APP_Significant=(function(){//init function
+    var APP_Significant = APP_Significant || {};
+    APP_Significant.constants = (function () {
+        var consts = {},
+        ownProp = Object.prototype.hasOwnProperty,
+        allowed = {
+            string: 1,
+            number: 1,
+            'boolean': 1
+        },
+        prefix = (Math.random() + "_").slice(2);
+        return {
+            set: function (name, value) {
+                if (this.isDefined(name)) {
+                    return false;
+                }
+                if (!ownProp.call(allowed, typeof value)) {
+                    return false;
+                }
+                consts[prefix + name] = value;
+                return true;
+            },
+            isDefined: function (name) {
+                return ownProp.call(consts, prefix + name);
+            },
+            get: function (name) {
+                if (this.isDefined(name)) {
+                    return consts[prefix + name];
+                }
+                return null;
+            },
+            getsAll:function(){
+                return consts; 
             }
-        });
-    }
-    
-    $(".competitions-action-tours-viewer a[page-number]").live('click',function(){
-        var $this=$(this);
-        var params={};
-        params.controller='competition';
-        params.action= 'tours-viewer';
-        params.page=$this.attr('page-number');
-        params.changedObjectName='competition';
-        params.changedRowId=0;
-        params.request={};
-        params.request.search={};
-        params.request.search.name=$("input.search-club").val();
-        toolbar.refresh(params);
-       
-    });
-    $('.instruments').click(function(){
-        $(this).find('~.submenu').slideToggle('fast');
-    });
-    
-});
+        };
+    }());
+    return APP_Significant;
+})();
+//place to set constants

@@ -53,8 +53,6 @@ class App_Controller_Plugin_ViewSetup extends Zend_Controller_Plugin_Abstract {
 
     protected function _controllerJSLink(Zend_Controller_Request_Http $request) {
         $jsFiles = array();
-        $jsFiles[] = 'js/ajaxRequest.js';
-        $jsFiles[] = 'js/toolbar.js';
         $jsFiles[] = 'js/site.js';
         $jsFiles[] = 'js/modernizr.custom.58688.js';
         $jsFiles[] = 'js/' . $request->getControllerName() . '/' . $request->getActionName() . '.js';
